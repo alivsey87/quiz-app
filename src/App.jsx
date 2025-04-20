@@ -11,7 +11,6 @@ function App() {
     difficulty: "",
   });
   const [trivData, setTrivData] = useState();
-  const [loading, setLoading] = useState(false);
   const [isEnabled, setIsEnabled] = useState(true);
   const [isCooled, setIsCooled] = useState(true);
   const [trivQuestion, setTrivQuestion] = useState("");
@@ -117,15 +116,13 @@ function App() {
       setTrivFetchError("");
       setIsEnabled(false);
       setIsCooled(false);
-      setLoading(true);
       const response = await fetch(
         `https://opentdb.com/api.php?amount=1&category=${userInput.category}&difficulty=${userInput.difficulty}&type=multiple`
       );
 
       if (!response.ok) {
-        setLoading(false);
         setIsEnabled(true);
-        throw new Error("Failed to retrieve a trivia question!");
+        throw new Error("So sorry! We couldn't get you a question, try again!");
       }
 
       const data = await response.json();
@@ -156,50 +153,50 @@ function App() {
       setTrivAnswers(allAnswers);
       setCorrectAnswer(correct);
       coolDown();
-      setLoading(false);
       setView("question");
-    } catch {
-      setTrivFetchError("So sorry! We couldn't get you a question, try again!");
+    } catch (error) {
+      setTrivFetchError(error.message);
     }
   };
 
   return (
     <div>
-      {view === "home" && <HomePage onEnter={handleEnter} />}
-
-      {view === "main" && (
-        <MainForm
-          userInput={userInput}
-          handleNameChange={handleNameChange}
-          handleCategoryChange={handleCategoryChange}
-          handleDifficultyChange={handleDifficultyChange}
-          getTriviaQuestion={getTriviaQuestion}
-          isEnabled={isEnabled}
-          isCooled={isCooled}
-          formError={formError}
-          hasError={hasError}
-        />
+      {trivFetchError ? (
+        <p>{trivFetchError}</p>
+      ) : (
+        <>
+          {view === "home" && <HomePage onEnter={handleEnter} />}
+          {view === "main" && (
+            <MainForm
+              userInput={userInput}
+              handleNameChange={handleNameChange}
+              handleCategoryChange={handleCategoryChange}
+              handleDifficultyChange={handleDifficultyChange}
+              getTriviaQuestion={getTriviaQuestion}
+              isEnabled={isEnabled}
+              isCooled={isCooled}
+              formError={formError}
+              hasError={hasError}
+            />
+          )}
+          {view === "question" && trivData && (
+            <QuestionForm
+              trivQuestion={trivQuestion}
+              trivAnswers={trivAnswers}
+              handleAnswerChange={handleAnswerChange}
+              submitAnswer={submitAnswer}
+              madeChoice={madeChoice}
+            />
+          )}
+          {view === "results" && isCorrect !== null && (
+            <Results
+              isCorrect={isCorrect}
+              userName={userInput.name}
+              tryAnother={tryAnother}
+            />
+          )}
+        </>
       )}
-
-      {view === "question" && trivData && (
-        <QuestionForm
-          trivQuestion={trivQuestion}
-          trivAnswers={trivAnswers}
-          handleAnswerChange={handleAnswerChange}
-          submitAnswer={submitAnswer}
-          madeChoice={madeChoice}
-        />
-      )}
-
-      {view === "results" && isCorrect !== null && (
-        <Results
-          isCorrect={isCorrect}
-          userName={userInput.name}
-          tryAnother={tryAnother}
-        />
-      )}
-
-      <p>{trivFetchError}</p>
     </div>
   );
 }

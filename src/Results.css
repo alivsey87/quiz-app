@@ -51,6 +51,14 @@
     filter: drop-shadow(0px 0px 20px var(--yellow));
 }
 
+.try-button:active {
+    cursor: pointer;
+    background-color: rgb(243, 239, 190);
+    color: rgb(110, 53, 110);
+    filter: drop-shadow(0px 0px 5px var(--yellow));
+    border: 2px solid rgb(110, 53, 110);
+}
+
 @keyframes fadeIn {
     from {
         transform: scale(0.9);

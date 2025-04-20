@@ -2,7 +2,6 @@
     --yellow: rgb(241, 241, 108);
 }
 
-
 #home-page {
     display: flex;
     flex-direction: column;
@@ -43,6 +42,14 @@
     background-color:var(--yellow);
     color: rgb(110, 53, 110);
     filter: drop-shadow(0px 0px 20px var(--yellow));
+}
+
+.button-home:active {
+    cursor: pointer;
+    background-color: rgb(243, 239, 190);
+    color: rgb(110, 53, 110);
+    filter: drop-shadow(0px 0px 5px var(--yellow));
+    border: 2px solid rgb(110, 53, 110);
 }
 
 @keyframes fadeIn {

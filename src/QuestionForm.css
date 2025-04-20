@@ -31,12 +31,6 @@
     padding-top: 30px;
 }
 
-.label {
-    margin-bottom: 15px;
-    margin-top: 10px;
-    font-size: 1.5rem;
-}
-
 .choice-input {
     display: flex;
     justify-content:flex-start;
@@ -48,7 +42,7 @@
     font-weight: 600;
     font-size: 1.5rem;
     text-align: center;
-    width: 70%;
+    width: 80%;
     height: 50px;
     margin-bottom: 20px;
 }
@@ -79,23 +73,6 @@ input[type="radio"]:hover {
    padding-top: 5px;
 }
 
-.select-input {
-    background-color: rgba(0, 0, 0, 0.3);
-    border: 1px solid var(--yellow);
-    color: var(--yellow);
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 1rem;
-    text-align: center;
-    width: 50%;
-    padding: 8px;
-    margin-bottom: 20px;
-}
-
-.select-input:focus {
-    filter: drop-shadow(0px 0px 5px var(--yellow));
-}
-
 .sub-button {
     width: 200px;
     padding: 5px;
@@ -108,15 +85,19 @@ input[type="radio"]:hover {
     transition: all 400ms;
 }
 
-.sub-button:not(:disabled):hover {
+.sub-button:hover {
     cursor: pointer;
     background-color: var(--yellow);
     color: rgb(110, 53, 110);
     filter: drop-shadow(0px 0px 20px var(--yellow));
 }
 
-.sub-button:disabled {
-    opacity: 0.5;
+.sub-button:active {
+    cursor: pointer;
+    background-color: rgb(243, 239, 190);
+    color: rgb(110, 53, 110);
+    filter: drop-shadow(0px 0px 5px var(--yellow));
+    border: 2px solid rgb(110, 53, 110);
 }
 
 .choice-error {
